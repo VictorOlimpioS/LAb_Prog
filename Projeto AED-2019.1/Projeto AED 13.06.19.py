@@ -1,3 +1,5 @@
+// Projeto de Sistema para Biblioteca desenvolvido em Python com estrutura de √°rvores vermelha e preta e orienta√ß√£o √† objeto
+
 class Nodo():
 
     def __init__(self, registro):
@@ -180,7 +182,7 @@ class Arvore():
             elif novo.dado > x.dado:
                 x = x.right
             else:
-                print("ID j· cadastrado")
+                print("ID j√° cadastrado")
                 return
         novo.pai = y
 
@@ -286,7 +288,7 @@ def valida_faixa_inteiro(pergunta, inicio, fim):
             if inicio <= valor <= fim:
                 return (valor)
         except ValueError:
-            print("Valor inv·lido, favor digitar entre %d e %d" % (inicio, fim))
+            print("Valor inv√°lido, favor digitar entre %d e %d" % (inicio, fim))
 
 def data():
     hoje = date.today()
@@ -322,7 +324,7 @@ def menu():
 5  - Consultar aluno
 6  - Consultar livro
 7  - Emprestimo de livro
-8  - DevoluÁ„o
+8  - Devolu√ß√£o
 9  - Pagar multa
 10 - Consultar multa
 11 - Listar todos os alunos
@@ -331,41 +333,41 @@ def menu():
 
 0  - Sair
 """)
-    return valida_faixa_inteiro("Escolha uma opÁ„o: ", 0, 12)
+    return valida_faixa_inteiro("Escolha uma op√ß√£o: ", 0, 12)
 
 
 while True:
 
-    opÁ„o = menu()
-    if opÁ„o == 0:
+    op√ß√£o = menu()
+    if op√ß√£o == 0:
         break
-    elif opÁ„o == 1:
+    elif op√ß√£o == 1:
         nome = input("Digite o nome do aluno: ")
         registro = int(input("Digite o numero do CPF: "))
         alunos.inserir(Nodo_aluno(nome, registro))
-    elif opÁ„o == 2:
+    elif op√ß√£o == 2:
         nome = input("Digite o nome do livro: ")
         registro = int(input("Digite o numero do ID do livro: "))
         livros.inserir(Nodo_livro(nome, registro))
-    elif opÁ„o == 3:
+    elif op√ß√£o == 3:
         remover = int(input("Digite o CPF do aluno a ser removido: "))
         elemento = alunos.procurar(remover)
         if elemento != alunos.vazio:
             alunos.remover(elemento)
             print("Aluno removido com sucesso")
         else:
-            print("Aluno n„o encontrado")
+            print("Aluno n√£o encontrado")
 
-    elif opÁ„o == 4:
+    elif op√ß√£o == 4:
         remover = int(input("Digite o ID do livro a ser removido: "))
         elemento = livros.procurar(remover)
         if elemento != livros.vazio:
             livros.remover(elemento)
             print("Livro removido com sucesso")
         else:
-            print("Livro n„o encontrado")
+            print("Livro n√£o encontrado")
 
-    elif opÁ„o == 5:
+    elif op√ß√£o == 5:
         consultar = int(input("Digite o CPF: "))
         elemento = alunos.procurar(consultar)
         if elemento != alunos.vazio:
@@ -373,24 +375,24 @@ while True:
                 print("ID: %d\nAluno: %s" % (elemento.dado,elemento.nome))
             else:
                 titulo, id = elemento.livros_atuais[0]
-                print("ID: %d\nAluno: %s\nLivro : %s ID: %d\nData de devoluÁ„o: %s" % (elemento.dado,elemento.nome,titulo,id,elemento.data))
+                print("ID: %d\nAluno: %s\nLivro : %s ID: %d\nData de devolu√ß√£o: %s" % (elemento.dado,elemento.nome,titulo,id,elemento.data))
         else:
-            print("Aluno n„o encontrado")
+            print("Aluno n√£o encontrado")
 
-    elif opÁ„o == 6:
+    elif op√ß√£o == 6:
         consulta = int(input("Digite o ID do livro: "))
         elemento = livros.procurar(consulta)
         if elemento != livros.vazio:
             print("ID: %d\nTitulo: %s" % (elemento.dado,elemento.nome))
         else:
-            print("Livro n„o encontrado")
+            print("Livro n√£o encontrado")
 
-    elif opÁ„o == 7:
+    elif op√ß√£o == 7:
         aluno = int(input("Numero do CPF do aluno a ser emprestado o livro: "))
         buscar_aluno = alunos.procurar(aluno)
         if buscar_aluno != alunos.vazio:
             if len(buscar_aluno.livros_atuais) >= 1:
-                print("Limite de emprÈstimos excedido")
+                print("Limite de empr√©stimos excedido")
 
             elif buscar_aluno.multa != None and buscar_aluno.multa > 0:
                 print("Aluno caloteiro\nMulta : R$ %d" % buscar_aluno.multa)
@@ -402,16 +404,16 @@ while True:
                     if buscar_livro.emprestado:
                         if buscar_livro.reservado:
                             if buscar_livro.reserva[0] == buscar_aluno.dado:
-                                print("Livro ainda est· emprestado, aguarde a devoluÁ„o")
+                                print("Livro ainda est√° emprestado, aguarde a devolu√ß√£o")
                             else:
-                                print("Livro j· est· emprestado e reservado")
+                                print("Livro j√° est√° emprestado e reservado")
                         else:
                             reserva = input("Livro emprestado, reservar? Digite S ou N: ")
                             if reserva == "S":
                                 buscar_livro.reservado = True
                                 buscar_livro.reserva.append(buscar_aluno.dado)
                                 print("Reserva realizada com sucesso")
-                                print("Previs„o para disponibilidade: %s" % (buscar_livro.data))
+                                print("Previs√£o para disponibilidade: %s" % (buscar_livro.data))
                             else:
                                 pass
                     elif buscar_livro.reservado:
@@ -423,9 +425,9 @@ while True:
                             buscar_livro.data = horario
                             buscar_livro.reservado = False
                             buscar_livro.reserva = []
-                            print("EmprÈstimo realizado com sucesso\nData de devoluÁ„o: %s" % (horario))
+                            print("Empr√©stimo realizado com sucesso\nData de devolu√ß√£o: %s" % (horario))
                         else:
-                            print("Aluno n„o corresponde a reserva")
+                            print("Aluno n√£o corresponde a reserva")
 
                     else:
                         buscar_livro.emprestado = True
@@ -433,23 +435,23 @@ while True:
                         horario = data()
                         buscar_aluno.data = horario
                         buscar_livro.data = horario
-                        print("EmprÈstimo realizado com sucesso\nData de devoluÁ„o: %s" % (horario))
+                        print("Empr√©stimo realizado com sucesso\nData de devolu√ß√£o: %s" % (horario))
                 else:
-                    print("Livro n„o encontrado")
+                    print("Livro n√£o encontrado")
         else:
-            print("Aluno n„o cadastrado")
+            print("Aluno n√£o cadastrado")
 
 
-    elif opÁ„o == 8:
+    elif op√ß√£o == 8:
         aluno = int(input("Digite o numero do CPF: "))
         buscar_aluno = alunos.procurar(aluno)
         if buscar_aluno == alunos.vazio:
-            print("CPF inv·lido")
+            print("CPF inv√°lido")
         else:
             livro = int(input("Digite o numero do ID do livro: "))
             buscar_livro = livros.procurar(livro)
             if buscar_livro == livros.vazio:
-                print("ID inv·lido")
+                print("ID inv√°lido")
             else:
                 if buscar_livro.emprestado:
                     if len(buscar_aluno.livros_atuais) == 1:
@@ -462,38 +464,38 @@ while True:
                             if buscar_aluno.multa != None and buscar_aluno.multa > 0:
                                 print("Multa gerada no valor de: R$ %d" % buscar_aluno.multa)
                         else:
-                            print("O ID do livro n„o confere com o CPF do aluno")
+                            print("O ID do livro n√£o confere com o CPF do aluno")
                     else:
-                        print("O aluno n„o possui emprÈstimo")
+                        print("O aluno n√£o possui empr√©stimo")
                 else:
-                    print("Livro consultado n„o est· emprestado")
+                    print("Livro consultado n√£o est√° emprestado")
 
-    elif opÁ„o == 9:
+    elif op√ß√£o == 9:
         aluno = int(input("Digite o numero do CPF: "))
         buscar_aluno = alunos.procurar(aluno)
         if buscar_aluno == alunos.vazio:
-            print("CPF inv·lido")
+            print("CPF inv√°lido")
         else:
             if buscar_aluno.multa != None and buscar_aluno.multa != 0:
                 print("Valor da multa: R$ %d" % buscar_aluno.multa)
                 pagamento = int(input("Digite o valor a ser pago: "))
                 buscar_aluno.multa -= pagamento
             else:
-                print("Aluno n„o possui multa")
+                print("Aluno n√£o possui multa")
 
-    elif opÁ„o == 10:
+    elif op√ß√£o == 10:
         aluno = int(input("Digite o numero do CPF: "))
         buscar_aluno = alunos.procurar(aluno)
         if buscar_aluno == alunos.vazio:
-            print("CPF inv·lido")
+            print("CPF inv√°lido")
         else:
             if buscar_aluno.multa != None and buscar_aluno.multa != 0:
                 print("Valor da multa: R$ %d" % buscar_aluno.multa)
             else:
-                print("Aluno n„o possui multa")
+                print("Aluno n√£o possui multa")
 
-    elif opÁ„o == 11:
+    elif op√ß√£o == 11:
         alunos.em_ordem(alunos.raiz)
 
-    elif opÁ„o == 12:
+    elif op√ß√£o == 12:
         livros.em_ordem(livros.raiz)
